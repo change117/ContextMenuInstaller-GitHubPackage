@@ -112,7 +112,43 @@ There are two ways to do this. Choose the easiest for you:
 
 ---
 
-### STEP 4: Trigger the Build (Make GitHub Create Your .exe)
+### STEP 4: Merge Pull Requests (If You Have Any)
+
+A **Pull Request (PR)** is a proposed change to your code. Sometimes bots like Copilot or other contributors will create a PR for you. You need to **merge** the PR to apply those changes to your main code.
+
+**Think of it like this:** Someone wrote improvements on a separate copy of your project. "Merging" means you accept those improvements and add them into your real project.
+
+#### How to Check for Pull Requests
+
+1. **Go to your repository on GitHub.com**
+2. **Click the "Pull requests" tab** (top of the page, next to "Issues")
+3. **You'll see a list of open PRs** (if any exist)
+   - If you see **no pull requests**, skip to STEP 5!
+   - If you see one or more, follow the steps below
+
+#### How to Merge a Pull Request
+
+1. **Click on the Pull Request title** to open it
+2. **Read the description** to understand what the change does
+3. **Scroll down** to the bottom of the page
+4. **You'll see a green "Merge pull request" button**
+   - If the PR says "Draft" instead, click **"Ready for review"** first, then the green merge button will appear in its place
+5. **Click "Merge pull request"**
+6. **Click "Confirm merge"**
+7. **Done!** The changes are now part of your main code ✅
+
+#### ⚠️ Important: Why Merging Matters
+
+The build workflow (the file that tells GitHub to create your .exe) is added via a Pull Request. **You must merge the PR before creating a release**, or GitHub won't know how to build your .exe.
+
+**Order of steps:**
+1. ✅ Merge any open Pull Requests first
+2. ✅ Then create a release (STEP 5)
+3. ✅ GitHub automatically builds your .exe
+
+---
+
+### STEP 5: Trigger the Build (Make GitHub Create Your .exe)
 
 Now we need to tell GitHub to build the .exe. There are two ways:
 
@@ -145,7 +181,7 @@ Now we need to tell GitHub to build the .exe. There are two ways:
 
 ---
 
-### STEP 5: Download Your Built .exe
+### STEP 6: Download Your Built .exe
 
 1. **Wait 2-3 minutes** for the build to complete
    - You can watch the progress in the "Actions" tab
@@ -165,7 +201,7 @@ Now we need to tell GitHub to build the .exe. There are two ways:
 
 ---
 
-### STEP 6: Test Your .exe
+### STEP 7: Test Your .exe
 
 1. **Download the .exe** from GitHub Releases
 2. **Right-click it** → "Run as administrator"
@@ -258,6 +294,9 @@ The `.github` folder might be hidden on your computer:
 - **Commit:** Saving changes with a description of what you changed
 - **Push:** Uploading your commits from your computer to GitHub
 - **Clone:** Downloading a repository from GitHub to your computer
+- **Branch:** A separate copy of your code where changes can be made without affecting the main code
+- **Pull Request (PR):** A proposed change to your code, waiting for you to approve and merge it
+- **Merge:** Accepting a Pull Request and adding its changes into your main code
 - **Release:** A specific version of your project with downloadable files
 - **Tag:** A label for a specific version (like v1.0.0)
 - **Actions:** GitHub's automation system that builds your .exe
@@ -275,6 +314,7 @@ Before you start:
 Steps:
 - [ ] Create new repository on GitHub
 - [ ] Upload all files (keep folder structure!)
+- [ ] Merge any open Pull Requests (see STEP 4)
 - [ ] Create a release with tag v1.0.0
 - [ ] Wait for build to complete (2-3 min)
 - [ ] Download .exe from Releases page
