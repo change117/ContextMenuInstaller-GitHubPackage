@@ -54,7 +54,7 @@ namespace ContextMenuInstaller
                 Console.WriteLine("4. Exit");
                 Console.Write("\nEnter your choice (1-4): ");
 
-                string choice = Console.ReadLine();
+                string? choice = Console.ReadLine();
 
                 switch (choice)
                 {
@@ -224,7 +224,7 @@ namespace ContextMenuInstaller
         static void InstallMenuItem(MenuItem item)
         {
             // Clean label for registry key name
-            string sanitizedLabel = new string(item.Label.Where(c => char.IsLetterOrDigit(c)).ToArray());
+            string sanitizedLabel = new string((item.Label ?? "").Where(c => char.IsLetterOrDigit(c)).ToArray());
             if (string.IsNullOrEmpty(sanitizedLabel))
             {
                 sanitizedLabel = "CustomItem";
@@ -248,7 +248,7 @@ namespace ContextMenuInstaller
                         throw new Exception($"Failed to create registry key: {contextPath}");
                     }
 
-                    key.SetValue("MUIVerb", item.Label);
+                    key.SetValue("MUIVerb", item.Label ?? "");
 
                     // Set icon if provided
                     if (!string.IsNullOrEmpty(item.Icon))
@@ -273,7 +273,7 @@ namespace ContextMenuInstaller
                 // Add submenu items if provided
                 if (item.Submenu != null && item.Submenu.Length > 0)
                 {
-                    using (RegistryKey key = Registry.ClassesRoot.OpenSubKey(contextPath, true))
+                    using (RegistryKey? key = Registry.ClassesRoot.OpenSubKey(contextPath, true))
                     {
                         if (key != null)
                         {
@@ -294,14 +294,14 @@ namespace ContextMenuInstaller
 
         static void InstallSubMenuItem(string parentPath, MenuItem subItem)
         {
-            string sanitizedLabel = new string(subItem.Label.Where(c => char.IsLetterOrDigit(c)).ToArray());
+            string sanitizedLabel = new string((subItem.Label ?? "").Where(c => char.IsLetterOrDigit(c)).ToArray());
             string subKeyPath = $@"{parentPath}\shell\{sanitizedLabel}";
 
             using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(subKeyPath))
             {
                 if (key != null)
                 {
-                    key.SetValue("", subItem.Label);
+                    key.SetValue("", subItem.Label ?? "");
 
                     if (!string.IsNullOrEmpty(subItem.Icon))
                     {
@@ -372,7 +372,7 @@ namespace ContextMenuInstaller
 
                 foreach (string contextPath in contextPaths)
                 {
-                    using (RegistryKey shellKey = Registry.ClassesRoot.OpenSubKey(contextPath, true))
+                    using (RegistryKey? shellKey = Registry.ClassesRoot.OpenSubKey(contextPath, true))
                     {
                         if (shellKey != null)
                         {
@@ -429,7 +429,7 @@ namespace ContextMenuInstaller
 
                 foreach (string contextPath in contextPaths)
                 {
-                    using (RegistryKey shellKey = Registry.ClassesRoot.OpenSubKey(contextPath))
+                    using (RegistryKey? shellKey = Registry.ClassesRoot.OpenSubKey(contextPath))
                     {
                         if (shellKey != null)
                         {
@@ -441,7 +441,7 @@ namespace ContextMenuInstaller
                                 Console.WriteLine($"\n📁 {contextPath}:");
                                 foreach (string keyName in customKeys)
                                 {
-                                    using (RegistryKey itemKey = shellKey.OpenSubKey(keyName))
+                                    using (RegistryKey? itemKey = shellKey.OpenSubKey(keyName))
                                     {
                                         if (itemKey != null)
                                         {
@@ -517,34 +517,34 @@ namespace ContextMenuInstaller
 
     public class MenuConfiguration
     {
-        public string Version { get; set; }
-        public string GeneratedBy { get; set; }
-        public string Timestamp { get; set; }
-        public ConfigurationData Configuration { get; set; }
+        public string? Version { get; set; }
+        public string? GeneratedBy { get; set; }
+        public string? Timestamp { get; set; }
+        public ConfigurationData? Configuration { get; set; }
     }
 
     public class ConfigurationData
     {
-        public MenuItem[] Items { get; set; }
-        public MenuStyle Style { get; set; }
+        public MenuItem[]? Items { get; set; }
+        public MenuStyle? Style { get; set; }
     }
 
     public class MenuItem
     {
-        public string Id { get; set; }
-        public string Label { get; set; }
-        public string Type { get; set; }
-        public string Command { get; set; }
-        public string Icon { get; set; }
-        public string Shortcut { get; set; }
-        public MenuItem[] Submenu { get; set; }
+        public string? Id { get; set; }
+        public string? Label { get; set; }
+        public string? Type { get; set; }
+        public string? Command { get; set; }
+        public string? Icon { get; set; }
+        public string? Shortcut { get; set; }
+        public MenuItem[]? Submenu { get; set; }
     }
 
     public class MenuStyle
     {
-        public string BackgroundColor { get; set; }
-        public string TextColor { get; set; }
-        public string HoverBackgroundColor { get; set; }
+        public string? BackgroundColor { get; set; }
+        public string? TextColor { get; set; }
+        public string? HoverBackgroundColor { get; set; }
         public int BorderRadius { get; set; }
         public int FontSize { get; set; }
     }
