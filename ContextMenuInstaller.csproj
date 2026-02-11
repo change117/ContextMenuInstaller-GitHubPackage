@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>ContextMenuInstaller</AssemblyName>
+    <RootNamespace>ContextMenuInstaller</RootNamespace>
+    <Version>1.0.0</Version>
+    <Authors>Your Name</Authors>
+    <Company>Context Menu Studio</Company>
+    <Product>Context Menu Installer</Product>
+    <Description>Helper tool for Context Menu Studio - Applies JSON configurations to Windows Registry</Description>
+    <Copyright>Copyright © 2026</Copyright>
+  </PropertyGroup>
+
+  <!-- Single File Publishing Configuration -->
+  <PropertyGroup>
+    <!-- This creates a single .exe file with everything included -->
+    <PublishSingleFile>true</PublishSingleFile>
+    
+    <!-- This includes .NET runtime so users don't need .NET installed -->
+    <SelfContained>true</SelfContained>
+    
+    <!-- Target Windows x64 (64-bit) systems -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    
+    <!-- Optimize for faster startup -->
+    <PublishReadyToRun>true</PublishReadyToRun>
+    
+    <!-- Don't trim assemblies (safer, slightly larger file) -->
+    <PublishTrimmed>false</PublishTrimmed>
+    
+    <!-- Enable compression to reduce file size -->
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    
+    <!-- Include native libraries in single file -->
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+
+</Project>
